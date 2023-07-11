@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+input{
+  background-color: #879093;
+  border: none;
+}
+.but_regist{
+  background-color: rgb(82, 155, 82);
+  border: none;
+}
+.div_regist{
+  background-color:#61dafb;
+  
+}
