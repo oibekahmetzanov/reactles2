@@ -1,52 +1,59 @@
-import { useState } from 'react';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [regist, setRegist] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [state, setState] = useState([]);
+  const [value, setValue] = useState("");
+  const [desc, setDesc] = useState("");
 
-  const handleRegister = () => {
-    if (firstName !== '' && lastName !== '' && email !== '') {
-      setRegist('Success! Thank you for registering');
-    } 
+  const onAddTask = () => {
+    const task = {
+      text: value,
+      description: desc,
+    };
+    setState([...state, task]);
+    console.log(state);
+  };
 
-
-    // setRegist('Success! Thank you for registering');
+  const onDelete = (item) => {
+    setState(state.filter((el) => el.text !== item.text));
+    console.log(state);
   };
 
   return (
     <div className="App">
-      <div className="div_regist">{regist}</div>
-      <input
-        type="text"
-        placeholder="first name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="last name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <br />
-      <input
-        type="email"
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <button
-        className="but_regist"
-        type="submit"
-        onClick={handleRegister}
-      >
-        register
-      </button>
+      {/* <form> */}
+      <div>
+        <input
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          type="title"
+        />
+        <input
+          value={desc}
+          onChange={(e) => {
+            setDesc(e.target.value);
+          }}
+          type="text"
+        />
+      </div>
+      <input onClick={onAddTask} type="submit" />
+      {/* </form> */}
+      <div>
+        {state.map((item, i) => {
+          return (
+            <div key={i}>
+              <div>{item.text}</div>
+              <div>{item.description}</div>
+              <input onClick={() => onDelete(item)} type="submit" value={"delete"} />
+              <input type="submit" value="important" />
+              <input type="submit" value="done" />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
